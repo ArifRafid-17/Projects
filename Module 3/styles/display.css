@@ -1,0 +1,23 @@
+article {
+    background-color: rgb(173, 100, 241);
+}
+
+h2 {
+    text-align: center;
+}
+
+#second-article {
+    /* display: none;
+    visibility: hidden ; */
+    /* box-shadow: x, y, z background-image: url(' photo.jpg') 
+    background-repeat: no repeat/ repeat-x, y 
+    background-position: top center, left, right 
+    background-size: cover;
+    height: 1200px */
+}
+
+span {
+    color: red;
+    display: block;
+    border: 2px solid red;
+}
