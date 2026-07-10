@@ -1,0 +1,30 @@
+.banner{
+    display: flex;
+    background-color: aquamarine ;
+    padding: 20px;
+    text-align: center;
+    align-items: center;
+}
+
+.banner-content{
+    /* flex: 1; */
+    
+    
+
+}
+
+#button{
+    background-color: bisque;
+    border-radius: 5px;
+    padding: 5px 20px;
+    cursor: pointer;
+}
+
+#button :hover{
+    background-color: white;
+    
+}
+.banner-img-container{
+    width: 100%;
+    height: auto;
+}

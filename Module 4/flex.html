@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>flex layout</title>
+</head>
+<link rel="stylesheet" href="Styles/navstyle.css">
+<style>
+    .container {
+        display: flex;
+        flex-wrap: wrap;
+        /* important */
+        /* gap: 20px;
+        flex-direction: column; */
+        justify-content: space-around;
+        /* important */
+
+
+    }
+
+    .box {
+
+        border: solid 3px brown;
+        display: inline-block;
+        text-align: center;
+    }
+</style>
+
+<body>
+    <nav>
+        <ul class="contrainer">
+            <li class="box"><a href="flex.html">Flex</a></li>
+            <li class="box"><a href="About.html">About us</a></li>
+            <li class="box"><a href="Achievement.html">Achievements</a></li>
+            <li class="box"><a href="nav.html">Navigation</a></li>
+            <li class="box"><a href="Skills.html">Skills</a></li>
+        </ul>
+    </nav>
+    <!-- .contrainer>.box*5{Boxing - $} -->
+    <div class="container">
+        <div class="box">YE</div>
+        <div class="box">KYA</div>
+        <div class="box">HOGYA</div>
+        <div class="box">HAIN</div>
+        <div class="box">TERA</div>
+        <div class="box">YEAHH</div>
+    </div>
+    <!-- main>article*3>section>h2 -->
+    <!-- ul.container>li*5{item: $} -->
+
+</body>
+
+</html>

@@ -1,0 +1,16 @@
+nav ul {
+    display: flex;
+    list-style: none;
+    justify-content: space-around;
+   
+}
+
+.contrainer{
+    display: flex;
+}
+nav ul :hover{
+    background-color: gainsboro;
+}
+nav ul li a{
+    text-decoration: none;
+}

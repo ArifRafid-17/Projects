@@ -1,0 +1,21 @@
+body{
+    background-color: rgb(244, 219, 208) ;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    border: 2px beige;
+}
+
+.header{
+    align-items: center;
+}
+
+
+.email{
+    border-radius: 8px;
+    border-width: 100pxs;
+    text-decoration: none;
+}
+
+.password{
+    border-radius: 8px;
+    text-decoration: none;
+}
