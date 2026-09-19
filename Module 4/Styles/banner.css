@@ -4,6 +4,8 @@
     padding: 20px;
     text-align: center;
     align-items: center;
+    /* display: grid;
+    grid-template-columns: repeat(2, 1fr); */
 }
 
 .banner-content{
