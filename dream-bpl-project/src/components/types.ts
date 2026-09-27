@@ -1,4 +1,4 @@
-interface PlayerType {
+export interface PlayerType {
     playerName: string,
     playerImg: string,
     origin: string,

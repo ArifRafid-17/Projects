@@ -1,7 +1,7 @@
 [
   {
     "playerName": "Shakib Al Hasan",
-    "playerImg": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTiO4zvEygwdiAWS33J60ddBVQQJphE7__s3_yCUUFF8A&s=10",
+    "playerImg": "https://www.thedailystar.net/sites/default/files/styles/big_1/public/feature/images/sh.jpg",
     "origin": "Bangladesh",
     "playerType": "All-Rounder",
     "bowlingStyle": "Left-arm orthodox",
@@ -10,7 +10,7 @@
   },
   {
     "playerName": "Babar Azam",
-    "playerImg": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTiO4zvEygwdiAWS33J60ddBVQQJphE7__s3_yCUUFF8A&s=10",
+    "playerImg": "https://e0.365dm.com/24/06/1600x900/skysports-babar-azam-pakistan_6583438.jpg?20240616192854",
     "origin": "Pakistan",
     "playerType": "Batter",
     "bowlingStyle": "Right-arm off break",
@@ -19,7 +19,7 @@
   },
   {
     "playerName": "Rashid Khan",
-    "playerImg": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTiO4zvEygwdiAWS33J60ddBVQQJphE7__s3_yCUUFF8A&s=10",
+    "playerImg": "https://ichef.bbci.co.uk/ace/standard/1800/cpsprodpb/f5ac/live/f12e9f70-928b-11f1-9e22-67b4720e20ea.jpg",
     "origin": "Afghanistan",
     "playerType": "Bowler",
     "bowlingStyle": "Right-arm leg break",
@@ -28,7 +28,7 @@
   },
   {
     "playerName": "Jos Buttler",
-    "playerImg": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTiO4zvEygwdiAWS33J60ddBVQQJphE7__s3_yCUUFF8A&s=10",
+    "playerImg": "https://media.mrcricketuae.com/web/large/media/asset/1790364708323_Jos-Buttler.webp",
     "origin": "England",
     "playerType": "Wicket-Keeper Batter",
     "bowlingStyle": "Right-arm medium",
@@ -37,7 +37,7 @@
   },
   {
     "playerName": "Travis Head",
-    "playerImg": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTiO4zvEygwdiAWS33J60ddBVQQJphE7__s3_yCUUFF8A&s=10",
+    "playerImg": "https://img1.hscicdn.com/image/upload/f_auto,t_ds_w_1280,q_70/lsci/db/PICTURES/CMS/409400/409463.3.png",
     "origin": "Australia",
     "playerType": "Batter",
     "bowlingStyle": "Right-arm off break",
@@ -46,7 +46,7 @@
   },
   {
     "playerName": "Jasprit Bumrah",
-    "playerImg": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTiO4zvEygwdiAWS33J60ddBVQQJphE7__s3_yCUUFF8A&s=10",
+    "playerImg": "https://assets.telegraphindia.com/abp/2026/Aug/1786292536_bumrah-9.jpg",
     "origin": "India",
     "playerType": "Bowler",
     "bowlingStyle": "Right-arm fast",
@@ -55,7 +55,7 @@
   },
   {
     "playerName": "Andre Russell",
-    "playerImg": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTiO4zvEygwdiAWS33J60ddBVQQJphE7__s3_yCUUFF8A&s=10",
+    "playerImg": "https://img1.hscicdn.com/image/upload/f_auto/lsci/db/PICTURES/CMS/378100/378198.6.jpg",
     "origin": "West Indies",
     "playerType": "All-Rounder",
     "bowlingStyle": "Right-arm fast",
@@ -64,7 +64,7 @@
   },
   {
     "playerName": "Kane Williamson",
-    "playerImg": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTiO4zvEygwdiAWS33J60ddBVQQJphE7__s3_yCUUFF8A&s=10",
+    "playerImg": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNOfYRutL1hZT6QKv1QKM_7XPQ4FgayEJVmEH8T_vlLkzVFZ8J1ZpdITw&s=10",
     "origin": "New Zealand",
     "playerType": "Batter",
     "bowlingStyle": "Right-arm off break",
@@ -73,7 +73,7 @@
   },
   {
     "playerName": "Shaheen Afridi",
-    "playerImg": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTiO4zvEygwdiAWS33J60ddBVQQJphE7__s3_yCUUFF8A&s=10",
+    "playerImg": "https://i.dawn.com/primary/2025/09/2811390769da1f3.webp",
     "origin": "Pakistan",
     "playerType": "Bowler",
     "bowlingStyle": "Left-arm fast",
@@ -82,7 +82,7 @@
   },
   {
     "playerName": "Ravindra Jadeja",
-    "playerImg": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTiO4zvEygwdiAWS33J60ddBVQQJphE7__s3_yCUUFF8A&s=10",
+    "playerImg": "https://akm-img-a-in.tosshub.com/indiatoday/images/story/202502/ravindra-jadeja-093135205-16x9_0.jpg?VersionId=XqWaAgV7wJvlxhOZpL0gIIs50MOKMmi7&size=690:388",
     "origin": "India",
     "playerType": "All-Rounder",
     "bowlingStyle": "Left-arm orthodox",
