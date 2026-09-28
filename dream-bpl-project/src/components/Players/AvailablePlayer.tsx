@@ -1,12 +1,15 @@
 import React from 'react';
 import PlayerCard from './PlayerCard';
 import type {PlayerType} from "../types";
+import type { Dispatch, SetStateAction } from "react";
 
 interface playersT {
     players: PlayerType[];
+    coin: number;
+    setcoin: Dispatch<SetStateAction<number>>;
 }
 
-const AvailablePlayer = ({players}: playersT) => {
+const AvailablePlayer = ({players, coin, setcoin}: playersT) => {
 
     // console.log(players, "Available Players")
 
@@ -17,7 +20,7 @@ const AvailablePlayer = ({players}: playersT) => {
 
                     const playerPerson = player;
                     return (
-                      <PlayerCard player = {playerPerson} key ={ind}/>
+                      <PlayerCard player = {playerPerson} key ={ind} coin = {coin} setcoin = {setcoin}/>
 
                     )
                 })

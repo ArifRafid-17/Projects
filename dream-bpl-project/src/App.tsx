@@ -1,6 +1,6 @@
 import Banner from "./components/banner";
 import Nav from "./components/Nav";
-import { Suspense } from "react";
+import { Suspense, useState } from "react";
 import Players from "./components/Players/Players";
 import type { PlayerType } from "./components/types";
 
@@ -14,13 +14,18 @@ const fetchPlayers = async (): Promise<PlayerType[]> => {
 const playersPromise = fetchPlayers(); // playerspromise = data
 
 function App() {
+  const [coin, setcoin] = useState(2000);
   return (
     <>
       <div>
-        <Nav />
+        <Nav coin = {coin}/>
         <Banner />
-        <Suspense fallback={<div>Loading players...</div>}>
-          <Players playerPromise={playersPromise} />
+        <Suspense
+          fallback={
+            <span className="loading loading-spinner loading-xl items-center size-max"></span>
+          }
+        >
+          <Players playerPromise={playersPromise} coin = {coin} setcoin = {setcoin}/>
         </Suspense>
       </div>
     </>

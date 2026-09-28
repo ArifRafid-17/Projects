@@ -1,17 +1,59 @@
-import React from "react";
+import React, { useState } from "react";
 import type { PlayerType } from "../types";
+import type { Dispatch, SetStateAction } from "react";
+import { Bounce, toast } from "react-toastify";
 
 interface Props {
   player: PlayerType;
+  coin: number;
+  setcoin: Dispatch<SetStateAction<number>>;
 }
 
-const PlayerCard = ({ player }: Props) => {
+const PlayerCard = ({ player, coin, setcoin }: Props) => {
+  const [isSelected, setSelection] = useState(false);
+
+  const handleSelection = () => {
+    
+
+    if (coin < player.price) {
+      setSelection(false)
+      toast.error("Need more coins to select:((", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+      });
+    } else {
+      setSelection(true);
+      const calculatedCoin = coin - player.price;
+      setcoin(calculatedCoin);
+      toast.success("Player Selected Successfully!!", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        transition: Bounce,
+      });
+    }
+  };
   return (
     <div className="card bg-base-100 w-full border border-gray-200 rounded-2xl p-4 shadow-sm">
       {/* Player Image */}
       <figure className="w-full h-56 rounded-xl overflow-hidden mb-4">
         <img
-          src={player.playerImg || "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"}
+          src={
+            player.playerImg ||
+            "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
+          }
           alt={player.playerName || "Player Image"}
           className="w-full h-full object-cover object-top"
         />
@@ -32,9 +74,7 @@ const PlayerCard = ({ player }: Props) => {
             clipRule="evenodd"
           />
         </svg>
-        <h3 className="text-xl font-bold text-gray-900">
-          {player.playerName}
-        </h3>
+        <h3 className="text-xl font-bold text-gray-900">{player.playerName}</h3>
       </div>
 
       {/* Country & Role Badge */}
@@ -68,17 +108,18 @@ const PlayerCard = ({ player }: Props) => {
           <span className="font-semibold text-gray-900">
             {player.battingStyle}
           </span>
-          <span className="text-gray-500">
-            {player.bowlingStyle}
-          </span>
+          <span className="text-gray-500">{player.bowlingStyle}</span>
         </div>
 
         <div className="flex items-center justify-between pt-1">
           <span className="font-semibold text-gray-900 text-sm">
             Price: ${player.price}
           </span>
-          <button className="btn btn-sm btn-outline border-gray-300 text-gray-700 font-normal hover:bg-warning hover:border-warning hover:text-black rounded-lg">
-            Choose Player
+          <button
+            onClick={() => handleSelection()}
+            className="btn btn-sm btn-outline border-gray-300 text-gray-700 font-normal hover:bg-warning hover:border-warning hover:text-black rounded-lg "
+          >
+            {isSelected === false ? "Choose Player" : "Selected"}
           </button>
         </div>
       </div>
