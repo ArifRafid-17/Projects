@@ -1,28 +1,32 @@
 import bg from "../assets/bg-shadow.png";
 import cric from "../assets/banner-main.png";
 
-export default function Banner() {
-  return (
-    <div className="container mx-auto">
-      <img src={bg} alt="Background" className=" bg-black ml-29 rounded-4xl" />
-      <div className="absolute top-0 left-0  flex items-center justify-center mt-50 container mx-auto">
-        <img src={cric} alt="Cricket" className="ml-110" />
-      </div>
+interface Props {
+  onClaim: () => void;
+  claimed: boolean;
+}
 
-      <div className="absolute top-0 left-0 flex flex-col items-center justify-center ml-50 mt-100 container mx-auto">
-        <h2 className="text-white text-[40px] font-bold font-[Open_Sans] text-wrap text-center mt-5">
+export default function Banner({ onClaim, claimed }: Props) {
+  return (
+    <section className="container mx-auto px-4">
+      <div
+        className="flex flex-col items-center gap-4 rounded-3xl bg-black bg-cover bg-center px-6 py-14 text-center text-white"
+        style={{ backgroundImage: `url(${bg})` }}
+      >
+        <img src={cric} alt="Cricket" className="max-w-xs" />
+        <h2 className="text-3xl font-bold md:text-[40px]">
           Assemble Your Ultimate Dream 11 Cricket Team
         </h2>
-        <p className="text-white text-center text-[24px] font-[Open_Sans] mt-5">
-          Beyond Boundaries Beyond Limits
-        </p>
+        <p className="text-xl md:text-2xl">Beyond Boundaries Beyond Limits</p>
+        <button
+          type="button"
+          onClick={onClaim}
+          disabled={claimed}
+          className="btn btn-outline btn-warning font-bold"
+        >
+          {claimed ? "Credit Claimed" : "Claim Free Credit"}
+        </button>
       </div>
-
-      {/* <button className="absolute top-0 left-0 bg-[#E7FE29] text-black py-2 px-4 rounded-lg ml-175 mt-140 font-[Open_Sans] text-[16px] font-bold">
-        Claim Free Credit
-      </button> */}
-
-      <button className="btn btn-outline btn-warning absolute top-0 left-0 ml-225 mt-140 font-[Open_Sans] text-[16px] font-bold ">Claim Free Credit</button>
-    </div>
+    </section>
   );
 }

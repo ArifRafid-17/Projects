@@ -12,15 +12,18 @@
   "dependencies": {
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
+    "react-icons": "^5.5.0",
     "react-toastify": "^11.1.0"
   },
   "devDependencies": {
+    "@tailwindcss/vite": "^4.1.0",
     "@types/node": "^24.13.3",
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.7",
     "@vitejs/plugin-react": "^6.1.1",
     "daisyui": "^5.7.44",
     "oxlint": "^1.81.0",
+    "tailwindcss": "^4.1.0",
     "typescript": "~6.0.2",
     "vite": "^8.3.0"
   }

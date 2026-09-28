@@ -1,34 +1,49 @@
-import Banner from "./components/banner";
-import Nav from "./components/Nav";
 import { Suspense, useState } from "react";
+import { toast } from "react-toastify";
+import Banner from "./components/Banner";
+import ErrorBoundary from "./components/ErrorBoundary";
+import Nav from "./components/Nav";
 import Players from "./components/Players/Players";
 import type { PlayerType } from "./components/types";
 
-// Created once when the file loads
 const fetchPlayers = async (): Promise<PlayerType[]> => {
   const res = await fetch("/data.json");
-  const data = res.json();
-  return data;
+  if (!res.ok) throw new Error(`Failed to load players (${res.status})`);
+  return res.json();
 };
 
-const playersPromise = fetchPlayers(); // playerspromise = data
+// Created once when the file loads
+const playersPromise = fetchPlayers();
+
+const FREE_CREDIT = 2000;
 
 function App() {
-  const [coin, setcoin] = useState(2000);
+  const [coin, setCoin] = useState(2000);
+  const [claimed, setClaimed] = useState(false);
+
+  const claimCredit = () => {
+    if (claimed) return;
+    setCoin((c) => c + FREE_CREDIT);
+    setClaimed(true);
+    toast.success(`${FREE_CREDIT} free coins added!`);
+  };
+
   return (
-    <>
-      <div>
-        <Nav coin = {coin}/>
-        <Banner />
+    <div>
+      <Nav coin={coin} />
+      <Banner onClaim={claimCredit} claimed={claimed} />
+      <ErrorBoundary>
         <Suspense
           fallback={
-            <span className="loading loading-spinner loading-xl items-center size-max"></span>
+            <div className="flex justify-center py-20">
+              <span className="loading loading-spinner loading-xl" />
+            </div>
           }
         >
-          <Players playerPromise={playersPromise} coin = {coin} setcoin = {setcoin}/>
+          <Players playerPromise={playersPromise} coin={coin} setCoin={setCoin} />
         </Suspense>
-      </div>
-    </>
+      </ErrorBoundary>
+    </div>
   );
 }
 

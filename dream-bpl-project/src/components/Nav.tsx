@@ -1,37 +1,30 @@
-import { useState } from "react";
-import Logo from "../assets/logo.png";
 import { CiDollar } from "react-icons/ci";
+import Logo from "../assets/logo.png";
 
-interface props{
-    coin : number,
+interface Props {
+  coin: number;
 }
-export default function Nav({coin} : props) {
 
-    
+const links = ["Home", "Fixture", "Team", "Schedule"];
+
+export default function Nav({ coin }: Props) {
   return (
-    <nav className="mt-5 mr-2 ml-55">
-      <div className="container mx-auto flex justify-between items-center p-6 ">
-        <img src={Logo} alt="Logo" />
+    <nav className="container mx-auto flex items-center justify-between gap-4 px-4 py-6">
+      <img src={Logo} alt="Logo" className="h-14 w-14 object-contain" />
 
-        <ul className="flex items-center gap-15 text-lg text-gray-500 font-[Open_Sans] ml-150">
-          <li>
-            <a href="/">Home</a>
+      <ul className="hidden items-center gap-10 text-lg text-gray-500 md:flex">
+        {links.map((l) => (
+          <li key={l}>
+            <a href="#" className="hover:text-black">
+              {l}
+            </a>
           </li>
-          <li>
-            <a href="/about">Fixture</a>
-          </li>
-          <li>
-            <a href="/contact">Team</a>
-          </li>
-          <li>
-            <a href="/schedule">Schedule</a>
-          </li>
-        </ul>
-        <h3 className="font-bold items-center mr-55 border-gray-300 border-2 rounded-[0.25vw] bg-clip-padding btn btn-lg">
-          {" "}
-          <CiDollar />
-          {coin} coin
-        </h3>
+        ))}
+      </ul>
+
+      <div className="btn btn-lg border-2 border-gray-300 font-bold">
+        <CiDollar className="text-2xl" />
+        {coin} coin
       </div>
     </nav>
   );
