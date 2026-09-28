@@ -1,10 +1,11 @@
 import { Suspense, useState } from "react";
 import { toast } from "react-toastify";
-import Banner from "./components/Banner";
+import Banner from "./components/banner";
 import ErrorBoundary from "./components/ErrorBoundary";
 import Nav from "./components/Nav";
 import Players from "./components/Players/Players";
 import type { PlayerType } from "./components/types";
+import Footer from "./components/Footer";
 
 const fetchPlayers = async (): Promise<PlayerType[]> => {
   const res = await fetch("/data.json");
@@ -43,6 +44,7 @@ function App() {
           <Players playerPromise={playersPromise} coin={coin} setCoin={setCoin} />
         </Suspense>
       </ErrorBoundary>
+      <Footer/>
     </div>
   );
 }
