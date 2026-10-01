@@ -1,27 +1,35 @@
 import React from "react";
+import Link from "next/link";
 
 const Nav = () => {
-
-  const links = <>
-   <li>Item 1</li>
-   <li>Item 2</li>
-   <li>Item 3</li>
-
-  
-  
-  </>
-
+  const links = (
+    <>
+      <li>
+        <Link href="/docs">Docs</Link>
+      </li>
+      <li>
+        <Link href="/about">About</Link>
+      </li>
+      <li>
+        <Link href="/blogs">Blogs</Link>
+      </li>
+      <li>
+        <Link href="/Showcase">Showcase</Link>
+      </li>
+      <li>
+        <Link href="/about/developers">Developers</Link>
+      </li>
+      <li>
+        <Link href="/Dashboard">Dashboard</Link>
+      </li>
+    </>
+  );
 
   return (
-    <div className="max-lg:collapse bg-base-200 lg:mb-48 shadow-sm w-full rounded-md">
-      <input id="navbar-1-toggle" className="peer hidden" type="checkbox" />
-      <label
-        htmlFor="navbar-1-toggle"
-        className="fixed inset-0 hidden max-lg:peer-checked:block"
-      ></label>
-      <div className="collapse-title navbar">
-        <div className="navbar-start">
-          <label htmlFor="navbar-1-toggle" className="btn btn-ghost lg:hidden">
+    <div className="navbar bg-base-100 shadow-sm">
+      <div className="navbar-start">
+        <div className="dropdown">
+          <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
             <svg
               aria-label="Menu"
               xmlns="http://www.w3.org/2000/svg"
@@ -30,34 +38,29 @@ const Nav = () => {
               viewBox="0 0 24 24"
               stroke="currentColor"
             >
+              {" "}
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth="2"
                 d="M4 6h16M4 12h8m-8 6h16"
-              />
+              />{" "}
             </svg>
-          </label>
-          <button className="btn btn-ghost text-xl">daisyUI</button>
-        </div>
-        <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal px-1">
-            <links/>
+          </div>
+          <ul
+            tabIndex={-1}
+            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
+          >
+            {links}
           </ul>
         </div>
-        <div className="navbar-end">
-          <input
-            type="text"
-            placeholder="Search"
-            className="input w-64 lg:w-auto"
-          />
-        </div>
+        <a className="btn btn-ghost text-xl">daisyUI</a>
       </div>
-
-      <div className="collapse-content lg:hidden z-1">
-        <ul className="menu">
-         <links></links>
-        </ul>
+      <div className="navbar-center hidden lg:flex">
+        <ul className="menu menu-horizontal px-1">{links}</ul>
+      </div>
+      <div className="navbar-end">
+        <a className="btn">Button</a>
       </div>
     </div>
   );
