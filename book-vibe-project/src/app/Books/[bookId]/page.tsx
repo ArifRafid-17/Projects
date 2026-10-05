@@ -1,6 +1,8 @@
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { BookType } from "../../types";
+import ReadButton from "../../components/BookDetails/ReadButton";
+import WIshButton from "../../components/BookDetails/WIshButton";
 
 const getBooks = async (): Promise<BookType[]> => {
   const res = await fetch("http://localhost:3000/booksData.json");
@@ -64,9 +66,18 @@ const BookDetailsPage = async ({ params }: BookDetailsPageProps) => {
           <span>Publisher:</span>
           <span className="font-semibold text-black">{book.publisher}</span>
           <span>Year of Publishing:</span>
-          <span className="font-semibold text-black">{book.yearOfPublishing}</span>
+          <span className="font-semibold text-black">
+            {book.yearOfPublishing}
+          </span>
           <span>Rating:</span>
           <span className="font-semibold text-black">{book.rating}</span>
+        </div>
+
+        {/* Action Buttons */}
+
+        <div className="flex gap-4 pt-4">
+          <ReadButton book={book} />
+          <WIshButton book={book} />
         </div>
       </div>
     </section>

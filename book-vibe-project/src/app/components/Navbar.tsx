@@ -14,7 +14,7 @@ export default function Navbar() {
       </li>
       <li>
         <Link
-          href="/Books"
+          href="/listed-books"
           className="text-gray-600 hover:text-gray-900 font-medium px-4 py-2 transition-colors"
         >
           Listed Books
