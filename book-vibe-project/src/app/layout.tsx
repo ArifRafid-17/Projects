@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Navbar from "./components/Navbar";
 import BooksProvider from "../Context/BooksContext";
+import { ToastContainer } from "react-toastify";
 
 import "./globals.css";
 
@@ -31,6 +32,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <Navbar></Navbar>
           <div> {children} </div>
         </BooksProvider>
+
+
+        <ToastContainer/>
       </body>
     </html>
   );

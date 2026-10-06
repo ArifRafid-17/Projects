@@ -2,7 +2,7 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import { BookType } from "../../types";
 import ReadButton from "../../components/BookDetails/ReadButton";
-import WIshButton from "../../components/BookDetails/WIshButton";
+import WishButton from "../../components/BookDetails/WishButton";
 
 const getBooks = async (): Promise<BookType[]> => {
   const res = await fetch("http://localhost:3000/booksData.json");
@@ -77,7 +77,7 @@ const BookDetailsPage = async ({ params }: BookDetailsPageProps) => {
 
         <div className="flex gap-4 pt-4">
           <ReadButton book={book} />
-          <WIshButton book={book} />
+          <WishButton book={book} />
         </div>
       </div>
     </section>

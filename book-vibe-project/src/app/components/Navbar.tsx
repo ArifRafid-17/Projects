@@ -75,13 +75,13 @@ export default function Navbar() {
         {/* Right Action Buttons */}
         <div className="flex items-center gap-3">
           <Link
-            href="/signin"
+            href="/"
             className="px-5 py-2.5 sm:px-7 sm:py-3 rounded-lg text-white font-semibold text-sm sm:text-base bg-[#23BE0A] hover:bg-[#1fa308] transition-colors inline-flex items-center justify-center"
           >
             Sign In
           </Link>
           <Link
-            href="/signup"
+            href="/"
             className="px-5 py-2.5 sm:px-7 sm:py-3 rounded-lg text-white font-semibold text-sm sm:text-base bg-[#59C6D2] hover:bg-[#48b5c1] transition-colors inline-flex items-center justify-center"
           >
             Sign Up

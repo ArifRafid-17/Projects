@@ -7,10 +7,9 @@ import { BookType } from '../types';
 
 const ListedBooksPage = () => {
 
-    const {readBooks} = useContext(booksContext) as { readBooks: BookType[] };
-
-    console.log("Read Books from Listed Books Page:", readBooks);
+    const {readBooks, wishlistBooks} = useContext(booksContext) as { readBooks: BookType[]; wishlistBooks: BookType[] };
     
+
     return (
         <div>
             Listed Books Page
