@@ -22,7 +22,7 @@ export default function Navbar() {
       </li>
       <li>
         <Link
-          href="/pages-to-read"
+          href="/read-books"
           className="text-gray-600 hover:text-gray-900 font-medium px-4 py-2 transition-colors"
         >
           Pages to Read
@@ -56,7 +56,7 @@ export default function Navbar() {
             </label>
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content mt-3 z-[1] p-3 shadow-lg bg-base-100 rounded-box w-52 gap-2"
+              className="menu menu-sm dropdown-content mt-3 p-3 shadow-lg bg-base-100 rounded-box w-52 gap-2"
             >
               {links}
             </ul>
