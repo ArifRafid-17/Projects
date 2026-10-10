@@ -1,9 +1,9 @@
-import React, { Suspense } from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
+import React, { Suspense } from "react";
+import Image from "next/image";
+import Link from "next/link";
 
 interface BodyBlock {
-  type: 'image' | 'text' | 'subheading' | string;
+  type: "image" | "text" | "subheading" | string;
   url?: string;
   width?: number;
   height?: number;
@@ -13,16 +13,25 @@ interface BodyBlock {
   text?: string;
 }
 
+type JsonValue =
+  | string
+  | number
+  | boolean
+  | null
+  | undefined
+  | JsonValue[]
+  | { [key: string]: JsonValue };
+
 interface ArticleDetail {
   id: string;
   title: string;
-  description: any;
+  description: JsonValue | null;
   link: string;
   firstPublished: string;
   lastPublished: string | null;
-  byline: any;
-  topics: any;
-  tags: any;
+  byline: JsonValue | null;
+  topics: JsonValue | null;
+  tags: JsonValue | null;
   imageUrl: string | null;
   body: BodyBlock[];
   text: string | null;
@@ -63,54 +72,82 @@ const formatBanglaDate = (dateInput?: string | Date) => {
   }
 };
 
-function extractDescription(desc: any): string {
-  if (!desc) return '';
-  if (typeof desc === 'string') return desc;
-  if (typeof desc === 'object') {
-    if (typeof desc.text === 'string') return desc.text;
+function extractDescription(desc: JsonValue | null | undefined): string {
+  if (!desc) return "";
+  if (typeof desc === "string") return desc;
+  if (typeof desc === "object") {
+    const obj = desc as Record<string, JsonValue>;
+    if (typeof obj.text === "string") return obj.text;
+
     const texts: string[] = [];
-    const traverse = (node: any) => {
-      if (!node) return;
-      if (typeof node.text === 'string' && node.text.trim()) {
-        texts.push(node.text.trim());
+    const traverse = (node: JsonValue | undefined): void => {
+      if (
+        !node ||
+        typeof node === "string" ||
+        typeof node === "number" ||
+        typeof node === "boolean"
+      )
+        return;
+
+      if (Array.isArray(node)) {
+        node.forEach(traverse);
         return;
       }
-      if (node.model) {
-        traverse(node.model);
+
+      const record = node as Record<string, JsonValue>;
+      if (typeof record.text === "string" && record.text.trim()) {
+        texts.push(record.text.trim());
+        return;
       }
-      if (Array.isArray(node.blocks)) {
-        node.blocks.forEach(traverse);
+      if (record.model) {
+        traverse(record.model as JsonValue);
+      }
+      if (Array.isArray(record.blocks)) {
+        record.blocks.forEach(traverse);
       }
     };
     traverse(desc);
-    return texts.length > 0 ? texts[0] : '';
+    return texts.length > 0 ? texts[0] : "";
   }
-  return '';
+  return "";
 }
 
-function extractAuthor(byline: any): string | null {
+function extractAuthor(byline: JsonValue | null | undefined): string | null {
   if (!byline) return null;
-  if (typeof byline === 'string') return byline;
+  if (typeof byline === "string") return byline;
   if (Array.isArray(byline) && byline.length > 0) {
-    if (typeof byline[0] === 'string') return byline[0];
-    if (byline[0]?.name) return byline[0].name;
+    const firstItem = byline[0];
+    if (typeof firstItem === "string") return firstItem;
+    if (firstItem && typeof firstItem === "object") {
+      const authorItem = firstItem as Record<string, JsonValue>;
+      if (typeof authorItem.name === "string") return authorItem.name;
+    }
   }
-  if (typeof byline === 'object' && byline.name) return byline.name;
+  if (typeof byline === "object") {
+    const authorObj = byline as Record<string, JsonValue>;
+    if (typeof authorObj.name === "string") return authorObj.name;
+  }
   return null;
 }
 
 function extractTags(article: ArticleDetail): string[] {
-  if (Array.isArray(article.tags) && article.tags.length > 0) {
-    return article.tags
-      .map((t: any) => (typeof t === 'string' ? t : t?.name || ''))
-      .filter(Boolean);
-  }
-  if (Array.isArray(article.topics) && article.topics.length > 0) {
-    return article.topics
-      .map((t: any) => (typeof t === 'string' ? t : t?.name || ''))
-      .filter(Boolean);
-  }
-  return [];
+  const tagsList =
+    Array.isArray(article.tags) && article.tags.length > 0
+      ? article.tags
+      : Array.isArray(article.topics) && article.topics.length > 0
+        ? article.topics
+        : [];
+
+  return tagsList
+    .map((tag: JsonValue) => {
+      if (typeof tag === "string") return tag;
+      if (tag && typeof tag === "object") {
+        const item = tag as Record<string, JsonValue>;
+        return typeof item.name === "string" ? item.name : "";
+      }
+      return "";
+    })
+    .filter(Boolean);
 }
 
 export async function generateMetadata({
@@ -125,13 +162,13 @@ export async function generateMetadata({
       const json = await res.json();
       const desc = extractDescription(json.data?.description);
       return {
-        title: `${json.data?.title || 'সংবাদ বিস্তারিত'} - Bangla News 24`,
-        description: desc || '',
+        title: `${json.data?.title || "সংবাদ বিস্তারিত"} - Bangla News 24`,
+        description: desc || "",
       };
     }
   } catch {}
   return {
-    title: 'সংবাদ বিস্তারিত - Bangla News 24',
+    title: "সংবাদ বিস্তারিত - Bangla News 24",
   };
 }
 
@@ -167,9 +204,12 @@ const NewsDetailContent = async ({ params }: NewsDetailPageProps) => {
 
   let article: ArticleDetail | null = null;
   try {
-    const res = await fetch(`https://news-api-v2.vercel.app/api/article/${id}`, {
-      next: { revalidate: 60 },
-    });
+    const res = await fetch(
+      `https://news-api-v2.vercel.app/api/article/${id}`,
+      {
+        next: { revalidate: 60 },
+      },
+    );
     if (res.ok) {
       const json = await res.json();
       article = json.data;
@@ -181,8 +221,12 @@ const NewsDetailContent = async ({ params }: NewsDetailPageProps) => {
   if (!article) {
     return (
       <div className="min-h-[60vh] flex flex-col items-center justify-center p-8 text-center bg-white">
-        <h2 className="text-xl font-bold text-gray-800 mb-2">সংবাদটি পাওয়া যায়নি</h2>
-        <p className="text-sm text-gray-500 mb-6">অনুগ্রহ করে পরে আবার চেষ্টা করুন।</p>
+        <h2 className="text-xl font-bold text-gray-800 mb-2">
+          সংবাদটি পাওয়া যায়নি
+        </h2>
+        <p className="text-sm text-gray-500 mb-6">
+          অনুগ্রহ করে পরে আবার চেষ্টা করুন।
+        </p>
         <Link
           href="/"
           className="bg-[#db0015] hover:bg-[#be1432] text-white text-sm font-medium px-5 py-2 rounded transition-colors"
@@ -206,77 +250,78 @@ const NewsDetailContent = async ({ params }: NewsDetailPageProps) => {
 
       {/* Lead / Description */}
       {descriptionText && (
-        <p className="mt-3 text-lg text-neutral-600">
-          {descriptionText}
-        </p>
+        <p className="mt-3 text-lg text-neutral-600">{descriptionText}</p>
       )}
 
       {/* Meta Bar */}
       <div className="mt-4 flex flex-wrap gap-x-3 gap-y-1 border-y border-neutral-200 py-3 text-sm text-neutral-500">
         {author && <span>{author}</span>}
         <span suppressHydrationWarning>
-          {formatBanglaDate(article.firstPublished || article.lastPublished || undefined)}
+          {formatBanglaDate(
+            article.firstPublished || article.lastPublished || undefined,
+          )}
         </span>
-        {article.wordCount && (
-          <span>{article.wordCount} শব্দ</span>
-        )}
+        {article.wordCount && <span>{article.wordCount} শব্দ</span>}
       </div>
 
       {/* Article Body Content */}
       <div className="mt-6">
         <div className="flex flex-col gap-4">
-          {article.body && article.body.length > 0 ? (
-            article.body.map((block, index) => {
-              if (block.type === 'image' && block.url) {
-                return (
-                  <figure key={index} className="my-2">
-                    <div className="relative aspect-[16/9] w-full overflow-hidden rounded-lg bg-neutral-100">
-                      <Image
-                        src={block.url}
-                        alt={block.altText || article.title}
-                        fill
-                        sizes="(max-width: 768px) 100vw, 768px"
-                        className="object-cover"
-                        unoptimized
-                      />
-                    </div>
-                    {(block.caption || block.copyrightHolder) && (
-                      <figcaption className="mt-1 text-sm text-neutral-500">
-                        {block.caption}
-                        {block.copyrightHolder && (
-                          <span> ({block.copyrightHolder})</span>
-                        )}
-                      </figcaption>
-                    )}
-                  </figure>
-                );
-              }
+          {article.body && article.body.length > 0
+            ? article.body.map((block, index) => {
+                if (block.type === "image" && block.url) {
+                  return (
+                    <figure key={index} className="my-2">
+                      <div className="relative aspect-[16/9] w-full overflow-hidden rounded-lg bg-neutral-100">
+                        <Image
+                          src={block.url}
+                          alt={block.altText || article.title}
+                          fill
+                          sizes="(max-width: 768px) 100vw, 768px"
+                          className="object-cover"
+                          unoptimized
+                        />
+                      </div>
+                      {(block.caption || block.copyrightHolder) && (
+                        <figcaption className="mt-1 text-sm text-neutral-500">
+                          {block.caption}
+                          {block.copyrightHolder && (
+                            <span> ({block.copyrightHolder})</span>
+                          )}
+                        </figcaption>
+                      )}
+                    </figure>
+                  );
+                }
 
-              if (block.type === 'subheading' && block.text) {
-                return (
-                  <h2 key={index} className="mt-2 text-xl font-bold text-neutral-900">
-                    {block.text}
-                  </h2>
-                );
-              }
+                if (block.type === "subheading" && block.text) {
+                  return (
+                    <h2
+                      key={index}
+                      className="mt-2 text-xl font-bold text-neutral-900"
+                    >
+                      {block.text}
+                    </h2>
+                  );
+                }
 
-              if (block.type === 'text' && block.text) {
-                return (
-                  <p key={index} className="leading-relaxed text-neutral-800">
-                    {block.text}
+                if (block.type === "text" && block.text) {
+                  return (
+                    <p key={index} className="leading-relaxed text-neutral-800">
+                      {block.text}
+                    </p>
+                  );
+                }
+
+                return null;
+              })
+            : article.text
+              ? article.text.split("\n\n").map((para, i) => (
+                  <p key={i} className="leading-relaxed text-neutral-800">
+                    {para}
                   </p>
-                );
-              }
-
-              return null;
-            })
-          ) : article.text ? (
-            article.text.split('\n\n').map((para, i) => (
-              <p key={i} className="leading-relaxed text-neutral-800">
-                {para}
-              </p>
-            ))
-          ) : null}
+                ))
+              : null}
         </div>
       </div>
 
